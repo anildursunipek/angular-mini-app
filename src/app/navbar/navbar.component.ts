@@ -9,6 +9,7 @@ export class NavbarComponent implements OnInit {
 
   constructor() { }
 
+  //ngOnInit component açıldığında çalışan ilk fonksiyondur. ngOnChance’den sonra gelen ikinci lifecycle eventidir. Burada getProduct’ı OnInit’e tanımlayarak component açıldığı anda ilk bu fonksiyonu çalıştırmasını istiyoruz.
   ngOnInit(): void {
   }
 
