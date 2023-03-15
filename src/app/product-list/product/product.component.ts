@@ -8,23 +8,11 @@ import { ProductRepository } from 'src/app/models/product.repository';
   styleUrls: ['./product.component.css']
 })
 export class ProductComponent implements OnInit {
-  // Fields and methods
-  products : Product[];
-  selectedProduct : Product | null
-  productRepository : ProductRepository;
+
   constructor() {
-    this.productRepository = new ProductRepository();
-    this.products = this.productRepository.getProducts();
+
   }
 
   ngOnInit(): void {
-  }
-
-  selectProduct(product: Product){
-    this.selectedProduct = product;
-  }
-
-  unSelectProduct(){
-    this.selectedProduct = null;
   }
 }
