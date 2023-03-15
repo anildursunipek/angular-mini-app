@@ -21,7 +21,7 @@ export class ProductRepository{
       name: "Iphone 16",
       price: 1200,
       imageUrl: "iphone_14_.jpg",
-      isActive: false
+      isActive: true
     }
   ]
 
