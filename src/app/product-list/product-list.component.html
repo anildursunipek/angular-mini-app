@@ -1,4 +1,4 @@
-<product-details [prd] = "selectedProduct" (unSelectEvent) = " unSelectProduct()" *ngIf="selectedProduct"></product-details>
+<!-- <product-details [prd] = "selectedProduct" (unSelectEvent) = " unSelectProduct()" *ngIf="selectedProduct"></product-details> -->
 
 <div *ngIf="products.length > 0; else noProducts">
   <ng-template [ngTemplateOutlet]="productList" [ngTemplateOutletContext]="{products: products}"></ng-template>
@@ -17,7 +17,8 @@
           <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>
             <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{product.price + "$"}}</h4></p>
-            <button (click)="selectProduct(product)" class="btn btn-primary">Select Product</button>
+            <a routerLink="/products/{{product.id}}" class="btn btn-primary">Product Details</a>
+            <!-- <button (click)="selectProduct(product)" class="btn btn-primary">Product Details</button> -->
           </div>
         </div>
       </div>

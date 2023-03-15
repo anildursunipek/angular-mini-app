@@ -4,22 +4,22 @@ export class ProductRepository{
   private products : Product[] = [
     {
       id: 1,
-      name: "Iphone 14",
+      name: "Iphone 12",
       price: 1000,
-      imageUrl: "iphone_14_.jpg",
+      imageUrl: "iphone_12.jpg",
       isActive: true
     },
     {
       id: 2,
-      name: "Iphone 15",
+      name: "Iphone 13",
       price: 1100,
-      imageUrl: "iphone_14_.jpg",
+      imageUrl: "iphone_13.jpg",
       isActive: true
     },
     {
       id: 3,
-      name: "Iphone 16",
-      price: 1200,
+      name: "Iphone 14",
+      price: 1000,
       imageUrl: "iphone_14_.jpg",
       isActive: true
     }
