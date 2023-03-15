@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Category } from '../models/category';
 import { CategoryRepository } from '../models/category.repository';
 
@@ -8,11 +9,13 @@ import { CategoryRepository } from '../models/category.repository';
   styleUrls: ['./category-list.component.css']
 })
 export class CategoryListComponent implements OnInit {
+
   categories: Category[];
   categoryRepository: CategoryRepository;
-  selectedCategory: Category | null;
+  selectedCategory: Category | undefined;
+  displayAll = true;
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     this.categoryRepository = new CategoryRepository();
     this.categories = this.categoryRepository.getCategories();
   }
@@ -20,11 +23,13 @@ export class CategoryListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  selectCategory(category: Category){
-    if(this.selectedCategory == category){
-      this.selectedCategory = null;
-      return;
+  selectCategory(category?: Category){
+    if(category){
+      this.selectedCategory = category;
+      this.displayAll= false;
+    }else{
+      this.selectedCategory = undefined;
+      this.displayAll = true;
     }
-    this.selectedCategory = category;
   }
 }

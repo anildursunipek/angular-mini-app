@@ -9,7 +9,7 @@ export class CategoryRepository{
     return this.categories
   }
 
-  public getCategoriesById(id: number): Category | undefined{
-    return this.categories.find(p=>p.id == id);
+  public getCategoriesById(id: number): Category[]{
+    return this.categories.filter(p=>p.id == id);
   }
 }

@@ -16,7 +16,7 @@
         <div class="col-9">
           <div class="card-body">
             <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{product.price + "$"}}</h4></p>
+            <p class="card-text">{{product.description}}<br><h4>{{product.price + "$"}}</h4></p>
             <a routerLink="/products/{{product.id}}" class="btn btn-primary">Product Details</a>
             <!-- <button (click)="selectProduct(product)" class="btn btn-primary">Product Details</button> -->
           </div>
