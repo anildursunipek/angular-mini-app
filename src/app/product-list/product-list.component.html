@@ -1,17 +1,4 @@
-<div *ngIf="selectedProduct" class="card border border-warning mb-3 bg-info">
-  <div class="row">
-    <div class="col-3">
-      <img src="/assets/images/{{selectedProduct.imageUrl}}" alt="{{selectedProduct.name}}" class="img-fluid rounded-start">
-    </div>
-    <div class="col-9">
-      <div class="card-body">
-        <h5 class="card-title">{{selectedProduct.name}}</h5>
-        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{selectedProduct.price + "$"}}</h4></p>
-        <button (click)="unSelectProduct()" class="btn btn-primary">Unselect Product</button>
-      </div>
-    </div>
-  </div>
-</div>
+<product-details [prd] = "selectedProduct" (unSelectEvent) = " unSelectProduct()" *ngIf="selectedProduct"></product-details>
 
 <div *ngIf="products.length > 0; else noProducts">
   <ng-template [ngTemplateOutlet]="productList" [ngTemplateOutletContext]="{products: products}"></ng-template>

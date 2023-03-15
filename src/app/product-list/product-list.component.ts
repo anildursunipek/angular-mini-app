@@ -12,6 +12,7 @@ export class ProductListComponent implements OnInit {
   products : Product[];
   selectedProduct : Product | null
   productRepository : ProductRepository;
+
   constructor() {
     this.productRepository = new ProductRepository();
     this.products = this.productRepository.getProducts();
