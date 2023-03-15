@@ -33,7 +33,7 @@ export class ProductComponent implements OnInit {
       name: "Iphone 15",
       price: 1100,
       imageUrl: "iphone_14_.jpg",
-      isActive: false
+      isActive: true
     },
     {
       id: 3,
