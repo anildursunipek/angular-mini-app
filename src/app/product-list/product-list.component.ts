@@ -15,29 +15,30 @@ export class ProductListComponent implements OnInit {
   // Fields and methods
   products : Product[] = [];
   // selectedProduct : Product | null
-  productRepository : ProductRepository;
+  // productRepository : ProductRepository;
 
   constructor(
     private route: ActivatedRoute,
-    private http: HttpClient,
     private productService: ProductService
     ) {
-    this.productRepository = new ProductRepository();
     // this.products = this.productRepository.getProducts();
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params =>{
-      if(params["categoryId"]){
-        this.products = this.productRepository.getProductByCategoryId(params["categoryId"]);
-      }else{
-        this.productService.getProducts().subscribe(result=>{
-            for(const key in result){
-              this.products.push({...result[key], id: key})
-            }
-          }
-        );
-      }
+      this.productService.getProducts(params["categoryId"]).subscribe(data => {
+        this.products = data;
+      });
+      // Old codes
+      // if(params["categoryId"]){
+      // }else{
+      //   this.productService.getProducts().subscribe(result=>{
+      //       for(const key in result){
+      //         this.products.push({...result[key], id: key})
+      //       }
+      //     }
+      //   );
+      // }
     })
   }
 
