@@ -1,0 +1,32 @@
+<h3>Create Product</h3>
+<form>
+  <div class="mb-3 form-group">
+    <label for="name" class="form-label">Name</label>
+    <input #name type="text" class="form-control" name="name" id="name" placeholder="Enter the product name">
+  </div>
+  <div class="mb-3 form-group">
+    <label for="price" class="form-label">Price</label>
+    <input #price type="text" class="form-control" name="price" id="price" placeholder="Enter the product price">
+  </div>
+  <div class="mb-3 form-group">
+    <label for="imageUrl" class="form-label">Image Url</label>
+    <input #imageUrl type="text" class="form-control" name="imageUrl" id="imageUrl" placeholder="Enter the product image url">
+  </div>
+  <div class="mb-3 form-group">
+    <label for="description" class="form-label">Description</label>
+    <textarea #description name="description" id="description" placeholder="Enter the description" class="form-control"></textarea>
+  </div>
+  <div class="form-check mb-3">
+    <input #isActive type="checkbox" class="form-check-input" id="isActive" name="isActive">
+    <label class="form-check-label" for="isActive">Is Active?</label>
+  </div>
+  <div class="mb-3 col-3">
+    <label for="categoryId" class="form-label">Category Id</label>
+    <select #categoryId type="text" class="form-select" name="categoryId" id="categoryId">
+      <option value="1">Mobile Phones</option>
+      <option value="2">Televisions</option>
+      <option value="3">Computers</option>
+    </select>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="saveProduct(name, price, imageUrl, description, isActive, categoryId)">Save Product</button>
+</form>
