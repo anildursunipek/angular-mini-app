@@ -3,11 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/product';
 import { ProductRepository } from '../models/product.repository';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
+  providers: [ProductService]
 })
 export class ProductListComponent implements OnInit {
   // Fields and methods
@@ -15,7 +17,11 @@ export class ProductListComponent implements OnInit {
   // selectedProduct : Product | null
   productRepository : ProductRepository;
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
+  constructor(
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private productService: ProductService
+    ) {
     this.productRepository = new ProductRepository();
     // this.products = this.productRepository.getProducts();
   }
@@ -25,17 +31,17 @@ export class ProductListComponent implements OnInit {
       if(params["categoryId"]){
         this.products = this.productRepository.getProductByCategoryId(params["categoryId"]);
       }else{
-        this.http.get<Product[]>("https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/products.json")
-          .subscribe(result=>{
+        this.productService.getProducts().subscribe(result=>{
             for(const key in result){
               this.products.push({...result[key], id: key})
             }
-            // console.log(this.products)
           }
-          );
+        );
       }
     })
   }
+
+  // Old codes
   // selectProduct(product: Product){
   //   this.selectedProduct = product;
   // }

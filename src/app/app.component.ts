@@ -1,15 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ProductService } from './services/product.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  providers: [ProductService]
 })
 export class AppComponent {
   // Fields and methods
   title = 'Products';
-  constructor(private http: HttpClient){}
+  constructor(
+    private http: HttpClient,
+    private productService: ProductService){}
 
 
   createProduct(){
@@ -23,9 +27,6 @@ export class AppComponent {
       description: "Lorem ipsum dolor sit amet."
     }
 
-    this.http.post(
-      "https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/products.json",
-      product
-      ).subscribe(data => console.log(data));
+    this.productService.createProduct(product).subscribe(data => console.log(data));
   }
 }
