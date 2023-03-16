@@ -20,10 +20,10 @@ export class ProductService{
           for(const key in data){
             if(categoryId){
               if(categoryId == data[key].categoryId){
-                products.push({...data[key]});
+                products.push({...data[key], id:key});
               }
             }else{
-              products.push({...data[key]});
+              products.push({...data[key], id:key});
             }
           }
           return products
@@ -38,6 +38,4 @@ export class ProductService{
   createProduct(product: Product): Observable<Product>{
     return this.http.post<Product>(this.products_url + "products.json", product);
   }
-
-
 }
