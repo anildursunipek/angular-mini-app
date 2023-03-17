@@ -6,13 +6,13 @@ import { Product } from "../models/product";
 // Local Service
 @Injectable()
 export class ProductService{
-  private products_url = "https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/";
+  private url = "https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/";
 
   constructor(private http: HttpClient){}
 
   getProducts(categoryId: number): Observable<Product[]>{
     return this.http
-      .get<Product[]>(this.products_url + "products.json")
+      .get<Product[]>(this.url + "products.json")
       .pipe(
         map(data=>{
           const products: Product[] = [];
@@ -32,10 +32,10 @@ export class ProductService{
   }
 
   getProductById(id: string): Observable<Product>{
-    return this.http.get<Product>(this.products_url + "products/" + id + ".json" );
+    return this.http.get<Product>(this.url + "products/" + id + ".json" );
   }
 
   createProduct(product: Product): Observable<Product>{
-    return this.http.post<Product>(this.products_url + "products.json", product);
+    return this.http.post<Product>(this.url + "products.json", product);
   }
 }

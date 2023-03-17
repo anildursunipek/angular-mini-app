@@ -28,7 +28,6 @@ export class ProductListComponent implements OnInit {
     this.route.params.subscribe(params =>{
       this.productService.getProducts(params["categoryId"]).subscribe(data => {
         this.products = data;
-        console.log(this.products);
       });
       // Old codes
       // if(params["categoryId"]){
