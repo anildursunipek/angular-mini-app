@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map, Observable } from "rxjs";
+import { delay, map, Observable } from "rxjs";
 import { Product } from "../models/product";
 
 // Local Service
@@ -27,12 +27,13 @@ export class ProductService{
             }
           }
           return products
-        })
+        }),
+        delay(600)
       )
   }
 
   getProductById(id: string): Observable<Product>{
-    return this.http.get<Product>(this.url + "products/" + id + ".json" );
+    return this.http.get<Product>(this.url + "products/" + id + ".json" ).pipe(delay(600));
   }
 
   createProduct(product: Product): Observable<Product>{

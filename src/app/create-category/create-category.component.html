@@ -1,8 +1,14 @@
 <h3>Create Category</h3>
-<form>
+<form #form="ngForm" (ngSubmit)="saveCategory(form)">
+  <div class="alert alert-danger" *ngIf="error">
+    {{error}}
+  </div>
   <div class="mb-3 form-group">
     <label for="name" class="form-label">Name</label>
-    <input #name type="text" class="form-control" name="name" id="name" placeholder="Enter the category name">
+    <input [(ngModel)]="model.name" #name="ngModel" required minlength="5" type="text" class="form-control" name="name" id="name" placeholder="Enter the category name" >
+    <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+      The category name must be at least 5 characters.
+    </div>
   </div>
-  <button type="button" class="btn btn-primary" (click)="saveCategory(name)">Save Category</button>
+  <button type="submit" [disabled]="form.invalid" class="btn btn-primary">Save Category</button>
 </form>

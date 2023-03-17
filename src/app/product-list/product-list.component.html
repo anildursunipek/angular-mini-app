@@ -1,7 +1,12 @@
 <!-- <product-details [prd] = "selectedProduct" (unSelectEvent) = " unSelectProduct()" *ngIf="selectedProduct"></product-details> -->
+<div *ngIf="!loading">
+  <div *ngIf="products.length > 0; else noProducts">
+    <ng-template [ngTemplateOutlet]="productList" [ngTemplateOutletContext]="{products: products}"></ng-template>
+  </div>
+</div>
 
-<div *ngIf="products.length > 0; else noProducts">
-  <ng-template [ngTemplateOutlet]="productList" [ngTemplateOutletContext]="{products: products}"></ng-template>
+<div class="d-flex justify-content-center" *ngIf="loading">
+  <div class="spinner-border mt-5 text-primary" style="width: 5rem; height: 5rem;" role="status"></div>
 </div>
 
 <ng-template #productList let-products="products">
@@ -18,21 +23,6 @@
             <p class="card-text">{{product.description}}<br><h4>{{product.price + "$"}}</h4></p>
             <a routerLink="/products/{{product.id}}" class="btn btn-primary">Product Details</a>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #productList2 let-products="products">
-  <!-- Horizontal Product List -->
-  <div class="row">
-    <div *ngFor="let product of products" class="col-3">
-      <div *ngIf="product.isActive" class="card mb-3">
-        <img src="/assets/images/{{product.imageUrl}}" alt="{{product.name}}" class="card-img-top">
-        <div class="card-body">
-          <h5 class="card-title">{{product.name}}</h5>
-          <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{product.price + "$"}}</h4></p>
         </div>
       </div>
     </div>

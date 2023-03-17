@@ -1,13 +1,19 @@
-<div class="card border mb-3" *ngIf="product else noProduct">
-  <div class="row">
-    <div class="col-3">
-      <img src="/assets/images/{{product.imageUrl}}" alt="{{product.name}}" class="img-fluid rounded-start">
-    </div>
-    <div class="col-9">
-      <div class="card-body">
-        <h5 class="card-title">{{product.name}}</h5>
-        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{product.price + "$"}}</h4></p>
-        <!-- <button (click)="unSelectProduct()" class="btn btn-primary">Unselect Product</button> -->
+<div class="d-flex justify-content-center" *ngIf="loading">
+  <div class="spinner-border mt-5 text-primary" style="width: 5rem; height: 5rem;" role="status"></div>
+</div>
+
+<div *ngIf="!loading">
+  <div class="card border mb-3" *ngIf="product else noProduct">
+    <div class="row">
+      <div class="col-3">
+        <img src="/assets/images/{{product.imageUrl}}" alt="{{product.name}}" class="img-fluid rounded-start">
+      </div>
+      <div class="col-9">
+        <div class="card-body">
+          <h5 class="card-title">{{product.name}}</h5>
+          <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{product.price + "$"}}</h4></p>
+          <!-- <button (click)="unSelectProduct()" class="btn btn-primary">Unselect Product</button> -->
+        </div>
       </div>
     </div>
   </div>

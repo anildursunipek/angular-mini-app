@@ -15,7 +15,7 @@ export class ProductDetailsComponent implements OnInit {
   // @Output() unSelectEvent = new EventEmitter<void>();
 
   product : Product | undefined;
-
+  loading : boolean = true;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService) {
@@ -25,7 +25,8 @@ export class ProductDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = params["productId"];
       this.productService.getProductById(id).subscribe(result =>{
-        this.product = {...result}
+        this.product = {...result};
+        this.loading = false;
       })
     })
   }

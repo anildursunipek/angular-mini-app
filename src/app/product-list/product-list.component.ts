@@ -14,21 +14,20 @@ import { ProductService } from '../services/product.service';
 export class ProductListComponent implements OnInit {
   // Fields and methods
   products : Product[] = [];
-  // selectedProduct : Product | null
-  // productRepository : ProductRepository;
+  loading : boolean = true;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService
-    ) {
-    // this.products = this.productRepository.getProducts();
-  }
+    ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params =>{
+      this.loading = true;
       this.productService.getProducts(params["categoryId"]).subscribe(data => {
         this.products = data;
-      });
+        this.loading = false;
+      })
       // Old codes
       // if(params["categoryId"]){
       // }else{
