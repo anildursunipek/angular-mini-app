@@ -11,8 +11,8 @@
       <div class="col-9">
         <div class="card-body">
           <h5 class="card-title">{{product.name}}</h5>
-          <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos iure, neque provident nisi maiores atque distinctio ullam laudantium exercitationem eligendi.<br><h4>{{product.price + "$"}}</h4></p>
-          <!-- <button (click)="unSelectProduct()" class="btn btn-primary">Unselect Product</button> -->
+          <p class="card-text" [innerHtml]="product.description"></p>
+          <h4>{{product.price + "$"}}</h4>
         </div>
       </div>
     </div>

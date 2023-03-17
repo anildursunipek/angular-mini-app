@@ -19,8 +19,9 @@
         </div>
         <div class="col-9">
           <div class="card-body">
-            <h5 class="card-title">{{product.name}}</h5>
-            <p class="card-text">{{product.description}}<br><h4>{{product.price + "$"}}</h4></p>
+            <h4 class="card-title">{{product.name}}</h4>
+            <p class="card-text" [innerHtml]="product.description"></p>
+            <h5>{{product.price + "$"}}</h5>
             <a routerLink="/products/{{product.id}}" class="btn btn-primary">Product Details</a>
           </div>
         </div>
