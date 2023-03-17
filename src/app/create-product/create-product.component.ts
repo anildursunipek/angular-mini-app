@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Route, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Category } from '../models/category';
 import { CategoryService } from '../services/category.service';
 import { ProductService } from '../services/product.service';
@@ -11,7 +12,13 @@ import { ProductService } from '../services/product.service';
   providers: [CategoryService]
 })
 export class CreateProductComponent implements OnInit {
-  categories : Category[] = []
+  categories : Category[] = [];
+  error : string = "";
+  // Two way binding
+  model : any = {
+    "isActive": true,
+    "categoryId": 0,
+  };
   constructor(
     private productService: ProductService,
     private route: Router,
@@ -24,19 +31,35 @@ export class CreateProductComponent implements OnInit {
     })
   }
 
-  saveProduct(name:any, price:any, imageUrl:any, description:any, isActive:any, categoryId:any){
-    const product = {
-      name: name.value,
-      price: price.value,
-      imageUrl: imageUrl.value,
-      isActive: isActive.checked,
-      categoryId: categoryId.value,
-      description: description.value
+  saveProduct(form: NgForm){
+    const extensions = ["png", "jpg", "jpeg"];
+    const extension = this.model.imageUrl.split(".").pop();
+    if(extensions.indexOf(extension) == -1){
+      this.error = "The image extension should only be jpg, jpeg or png."
+      return;
     }
 
-    this.productService.createProduct(product).subscribe(data =>{
-      this.route.navigate(["/products"]);
+    if(this.model.categoryId == 0){
+      this.error = "You have not selected a category.";
+      return;
+    }
+
+    if(form.valid){
+      const product = {
+        name: this.model.name,
+        price: this.model.price,
+        imageUrl: this.model.imageUrl,
+        isActive: this.model.isActive,
+        categoryId: this.model.categoryId,
+        description: this.model.description
       }
-    );
+
+      this.productService.createProduct(product).subscribe(data =>{
+        this.route.navigate(["/products"]);
+        }
+      );
+    }else{
+      this.error = "Check the form.";
+    }
   }
 }

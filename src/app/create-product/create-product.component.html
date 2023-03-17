@@ -1,31 +1,41 @@
 <h3>Create Product</h3>
-<form>
+<!-- <p>{{model | json}}</p> -->
+<form #form="ngForm" (ngSubmit)="saveProduct(form)">
+  <div class="alert alert-danger" *ngIf="error">
+    {{error}}
+  </div>
   <div class="mb-3 form-group">
     <label for="name" class="form-label">Name</label>
-    <input #name type="text" class="form-control" name="name" id="name" placeholder="Enter the product name">
+    <input [(ngModel)]="model.name" #name="ngModel" required minlength="5" type="text" class="form-control" name="name" id="name" placeholder="Enter the product name">
+    <div class="text-danger mt-1" *ngIf="name.invalid && name.touched">
+      The product name must be at least 5 characters.
+    </div>
   </div>
   <div class="mb-3 form-group">
     <label for="price" class="form-label">Price</label>
-    <input #price type="text" class="form-control" name="price" id="price" placeholder="Enter the product price">
+    <input [(ngModel)]="model.price" required min="0" #price="ngModel" max="100000" type="number" class="form-control" name="price" id="price" placeholder="Enter the product price">
+    <div class="text-danger mt-1" *ngIf="price.invalid && price.touched">
+      The product price must be between <span>0</span> and <span>100000</span>. {{model.price || 0}} is not correct value.
+    </div>
   </div>
   <div class="mb-3 form-group">
     <label for="imageUrl" class="form-label">Image Url</label>
-    <input #imageUrl type="text" class="form-control" name="imageUrl" id="imageUrl" placeholder="Enter the product image url">
+    <input [(ngModel)]="model.imageUrl" required type="text" class="form-control" name="imageUrl" id="imageUrl" placeholder="Enter the product image url">
   </div>
   <div class="mb-3 form-group">
     <label for="description" class="form-label">Description</label>
-    <textarea #description name="description" id="description" placeholder="Enter the description" class="form-control"></textarea>
+    <textarea [(ngModel)]="model.description" required minlength="5" name="description" id="description" placeholder="Enter the description" class="form-control"></textarea>
   </div>
   <div class="form-check mb-3">
-    <input #isActive type="checkbox" class="form-check-input" id="isActive" name="isActive">
+    <input [(ngModel)]="model.isActive" type="checkbox" class="form-check-input" id="isActive" name="isActive">
     <label class="form-check-label" for="isActive">Is Active?</label>
   </div>
   <div class="mb-3 col-3">
     <label for="categoryId" class="form-label">Category Id</label>
-    <select #categoryId type="text" class="form-select" name="categoryId" id="categoryId">
+    <select [(ngModel)]="model.categoryId" type="text" class="form-select" name="categoryId" id="categoryId">
       <option value="0">Categories</option>
-      <option *ngFor="let category of categories" value="category.id">{{category.name}}</option>
+      <option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}</option>
     </select>
   </div>
-  <button type="button" class="btn btn-primary" (click)="saveProduct(name, price, imageUrl, description, isActive, categoryId)">Save Product</button>
+  <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Save Product</button>
 </form>
