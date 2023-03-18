@@ -1,17 +1,17 @@
 <h3>Create Account</h3>
 
-<form (ngSubmit)="createAccount()">
+<form #form="ngForm" (ngSubmit)="handleAuth(form)">
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
-    <input type="email" name="email" id="email" class="form-control">
+    <input type="email" required email [(ngModel)]="model.email" name="email" id="email" class="form-control">
   </div>
   <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" name="email" id="email" class="form-control">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" required minlength="6" [(ngModel)]="model.password" name="password" id="password" class="form-control">
   </div>
 
   <div class="d-grid gap-2">
-    <button type="submit" class="btn btn-primary">{{isLoginMode ? "Login" : "Sign Up"}}</button>
-    <button type="button" class="btn btn-outline-primary" (click)="toggleMode()">{{isLoginMode ? "I don't have an account" : "I already have an account"}}</button>
+    <button type="submit" class="btn btn-primary" [disabled]="form.invalid">{{isLoginMode ? "Login" : "Sign Up"}}</button>
+    <button type="button" class="btn btn-outline-primary"  (click)="toggleMode()">{{isLoginMode ? "I don't have an account" : "I already have an account"}}</button>
   </div>
 </form>
