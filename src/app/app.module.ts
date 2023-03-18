@@ -13,6 +13,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { FormsModule } from '@angular/forms';
 import { CKEditorModule} from 'ckeditor4-angular';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CKEditorModule} from 'ckeditor4-angular';
     ProductDetailsComponent,
     HomeComponent,
     CreateProductComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
