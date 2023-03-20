@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Account } from '../models/account';
+import { AuthResponse } from '../models/authResponse';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'account',
@@ -8,10 +11,12 @@ import { NgForm } from '@angular/forms';
 })
 export class AccountComponent implements OnInit {
   isLoginMode:boolean = true;
-  model:any = {
-
+  model: Account= {
+    email: "",
+    password: "",
+    returnSecureToken: true
   }
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -21,11 +26,14 @@ export class AccountComponent implements OnInit {
       console.log("Form is invalid");
       return;
     }
-    console.log("Form is valid");
-  }
-  createAccount(){
-    console.log("Create Account Works....");
-    return;
+
+    if(this.isLoginMode){
+      console.log("login mode...");
+    }else{
+      this.authService.register(this.model).subscribe(response =>{
+        console.log(response);
+      })
+    }
   }
 
   toggleMode(){
