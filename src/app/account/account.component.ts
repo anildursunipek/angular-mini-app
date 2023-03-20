@@ -13,6 +13,7 @@ import { AuthService } from '../services/auth.service';
 export class AccountComponent implements OnInit {
   isLoginMode:boolean = true;
   loading:boolean = false;
+  error:string = "";
   model: Account= {
     email: "",
     password: "",
@@ -40,14 +41,39 @@ export class AccountComponent implements OnInit {
       authResponse = this.authService.register(this.model);
 
     }
-    try {
-      authResponse.subscribe(response =>{
-        console.log(response)
-      })
-    } catch (error) {
-      this.loading = false;
-    }
 
+    authResponse.subscribe({
+      next: (response) => {
+        this.loading = false;
+        this.error = "";
+      },
+      error: (response) => {
+        this.loading = false;
+        if(response.error.error){
+          switch(response.error.error.message){
+            case "EMAIL_EXISTS":
+              this.error = "There is a user for this mail";
+              break;
+            case "OPERATION_NOT_ALLOWED":
+              this.error = "Operation not allowed.";
+              break;
+            case "TOO_MANY_ATTEMPTS_TRY_LATER":
+              this.error = "Too many attempts try later";
+              break;
+            case "EMAIL_NOT_FOUND":
+              this.error = "No account found for this email.";
+              break;
+            case "INVALID_PASSWORD":
+              this.error = "Invalid passsword.";
+              break;
+            case "USER_DISABLED":
+              this.error = "User disabled.";
+              break;
+          }
+        }
+      }
+    },
+      )
   }
 
   toggleMode(){
