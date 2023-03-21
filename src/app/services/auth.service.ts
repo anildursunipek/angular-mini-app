@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, tap, throwError } from 'rxjs';
+import { catchError, Subject, tap, throwError } from 'rxjs';
 import { Account } from '../models/account';
 import { AuthResponse } from '../models/authResponse';
 import { User } from '../models/user';
@@ -12,6 +12,7 @@ export class AuthService {
   signUpUrl:string = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
   signInUrl:string = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
   apiKey:string = "AIzaSyA-VCQuVDFMOPdMgnULzTP3BKf_Y-tAnkU";
+  user: Subject<User> = new Subject<User>();
 
   constructor(private http: HttpClient) { }
 
@@ -25,7 +26,8 @@ export class AuthService {
             response.localId,
             response.idToken,
             expirationDate);
-            console.log(user);
+
+            this.user.next(user);
         }), //observing without changing the data
         catchError(this.handleError)
       );
@@ -40,7 +42,8 @@ export class AuthService {
             response.localId,
             response.idToken,
             expirationDate);
-            console.log(user);
+
+            this.user.next(user);
         }),
         catchError(this.handleError)
       );
