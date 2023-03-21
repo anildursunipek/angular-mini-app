@@ -47,30 +47,10 @@ export class AccountComponent implements OnInit {
         this.loading = false;
         this.error = "";
       },
-      error: (response) => {
+      error: (err) => {
         this.loading = false;
-        if(response.error.error){
-          switch(response.error.error.message){
-            case "EMAIL_EXISTS":
-              this.error = "There is a user for this mail";
-              break;
-            case "OPERATION_NOT_ALLOWED":
-              this.error = "Operation not allowed.";
-              break;
-            case "TOO_MANY_ATTEMPTS_TRY_LATER":
-              this.error = "Too many attempts try later";
-              break;
-            case "EMAIL_NOT_FOUND":
-              this.error = "No account found for this email.";
-              break;
-            case "INVALID_PASSWORD":
-              this.error = "Invalid passsword.";
-              break;
-            case "USER_DISABLED":
-              this.error = "User disabled.";
-              break;
-          }
-        }
+        this.error = err;
+        console.log(err)
       }
     },
       )
