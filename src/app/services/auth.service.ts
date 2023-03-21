@@ -1,8 +1,9 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { Account } from '../models/account';
 import { AuthResponse } from '../models/authResponse';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,30 @@ export class AuthService {
   register(account : Account){
     return this.http.post<AuthResponse>(this.signUpUrl + this.apiKey, account)
       .pipe(
+        tap(response => {
+          const expirationDate = new Date(new Date().getTime() + (Number(response.expiresIn) * 1000))
+          const user = new User(
+            response.email,
+            response.localId,
+            response.idToken,
+            expirationDate);
+            console.log(user);
+        }), //observing without changing the data
         catchError(this.handleError)
       );
   }
   signIn(account: Account){
     return this.http.post<AuthResponse>(this.signInUrl + this.apiKey, account)
       .pipe(
+        tap(response => {
+          const expirationDate = new Date(new Date().getTime() + (Number(response.expiresIn) * 1000))
+          const user = new User(
+            response.email,
+            response.localId,
+            response.idToken,
+            expirationDate);
+            console.log(user);
+        }),
         catchError(this.handleError)
       );
   }

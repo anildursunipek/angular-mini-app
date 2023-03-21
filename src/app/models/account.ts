@@ -1,5 +1,5 @@
 export interface Account{
-  email: String;
-  password: String;
+  email: string;
+  password: string;
   returnSecureToken: boolean;
 }
