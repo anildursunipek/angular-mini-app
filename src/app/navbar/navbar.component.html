@@ -24,7 +24,7 @@
           <a [routerLink]="['/account']" class="nav-link">Login / Register</a>
         </li>
         <li *ngIf="isAuthenticated" class="nav-item">
-          <a [routerLink]="['/account']" class="nav-link">Logout</a>
+          <a [routerLink]="['/account']" class="nav-link" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

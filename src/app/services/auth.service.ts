@@ -39,7 +39,7 @@ export class AuthService {
     let message = "";
 
     if(err.error.error){
-      switch(err.error.error){
+      switch(err.error.error.message){
         case "EMAIL_EXISTS":
           message = "There is a user for this mail.";
           break;

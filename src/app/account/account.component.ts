@@ -54,7 +54,6 @@ export class AccountComponent implements OnInit {
       error: (err) => {
         this.loading = false;
         this.error = err;
-        console.log(err)
       }
     },
       )
