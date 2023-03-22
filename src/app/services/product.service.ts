@@ -1,6 +1,6 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { delay, exhaustMap, map, Observable, take, tap } from "rxjs";
+import { catchError, delay, exhaustMap, map, Observable, take, tap, throwError } from "rxjs";
 import { Product } from "../models/product";
 import { AuthService } from "./auth.service";
 
@@ -8,7 +8,6 @@ import { AuthService } from "./auth.service";
 @Injectable()
 export class ProductService{
   private url = "https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/";
-
   constructor(
     private http: HttpClient,
     private authService: AuthService){}
@@ -45,7 +44,20 @@ export class ProductService{
       tap(user => console.log(user)),
       exhaustMap(user =>{
         return this.http.post<Product>(this.url + "products.json?auth=" + user?.token, product);
-      })
+      }),
+      catchError(this.handleError)
     )
+  }
+
+  handleError(err : HttpErrorResponse){
+    let message = "";
+    if(err.error.error){
+      switch(err.error.error){
+        case "Permission denied":
+          message = "Permission denied";
+          break;
+      }
+    }
+    return throwError(() => message)
   }
 }

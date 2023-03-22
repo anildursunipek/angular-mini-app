@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from './services/auth.service';
 import { ProductService } from './services/product.service';
 
 @Component({
@@ -8,6 +9,13 @@ import { ProductService } from './services/product.service';
   styleUrls: ['./app.component.css'],
   providers: [ProductService]
 })
-export class AppComponent {
-  constructor(){}
+export class AppComponent implements OnInit {
+  constructor(
+    private authService : AuthService
+  ){}
+
+  ngOnInit(): void {
+    this.authService.autoLogin();
+  }
+
 }

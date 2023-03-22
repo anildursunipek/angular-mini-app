@@ -54,10 +54,14 @@ export class CreateProductComponent implements OnInit {
         description: this.model.description
       }
 
-      this.productService.createProduct(product).subscribe(data =>{
+      this.productService.createProduct(product).subscribe({
+        next : data =>{
         this.route.navigate(["/products"]);
+        },
+        error : (error) => {
+          this.error = error;
         }
-      );
+      });
     }else{
       this.error = "Check the form.";
     }

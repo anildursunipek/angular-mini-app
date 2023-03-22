@@ -39,7 +39,7 @@ export class AuthService {
     let message = "";
 
     if(err.error.error){
-      switch(err.error.error.message){
+      switch(err.error.error){
         case "EMAIL_EXISTS":
           message = "There is a user for this mail.";
           break;
@@ -80,10 +80,9 @@ export class AuthService {
     if(localStorage.getItem("user") == null){
       return;
     }
-
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const loadedUser = new User(user.email, user.id, user._token, user._tokenExpirationDate)
-    if(user.token){
+    if(user._token){
       this.user.next(loadedUser);
     }
   }
