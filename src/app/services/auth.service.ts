@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Subject, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Subject, tap, throwError } from 'rxjs';
 import { Account } from '../models/account';
 import { AuthResponse } from '../models/authResponse';
 import { User } from '../models/user';
@@ -12,7 +12,7 @@ export class AuthService {
   signUpUrl:string = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
   signInUrl:string = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
   apiKey:string = "AIzaSyA-VCQuVDFMOPdMgnULzTP3BKf_Y-tAnkU";
-  user: Subject<User> = new Subject<User>();
+  user = new BehaviorSubject<User|null>(null);
 
   constructor(private http: HttpClient) { }
 
@@ -73,5 +73,18 @@ export class AuthService {
 
       console.log(user)
       this.user.next(user);
+      localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  autoLogin(){
+    if(localStorage.getItem("user") == null){
+      return;
+    }
+
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    const loadedUser = new User(user.email, user.id, user._token, user._tokenExpirationDate)
+    if(user.token){
+      this.user.next(loadedUser);
+    }
   }
 }

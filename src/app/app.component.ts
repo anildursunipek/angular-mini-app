@@ -9,7 +9,5 @@ import { ProductService } from './services/product.service';
   providers: [ProductService]
 })
 export class AppComponent {
-  // Fields and methods
-  title = 'Products';
   constructor(){}
 }
