@@ -20,14 +20,7 @@ export class AuthService {
     return this.http.post<AuthResponse>(this.signUpUrl + this.apiKey, account)
       .pipe(
         tap(response => {
-          const expirationDate = new Date(new Date().getTime() + (Number(response.expiresIn) * 1000))
-          const user = new User(
-            response.email,
-            response.localId,
-            response.idToken,
-            expirationDate);
-
-            this.user.next(user);
+          this.handleUser(response);
         }), //observing without changing the data
         catchError(this.handleError)
       );
@@ -36,14 +29,7 @@ export class AuthService {
     return this.http.post<AuthResponse>(this.signInUrl + this.apiKey, account)
       .pipe(
         tap(response => {
-          const expirationDate = new Date(new Date().getTime() + (Number(response.expiresIn) * 1000))
-          const user = new User(
-            response.email,
-            response.localId,
-            response.idToken,
-            expirationDate);
-
-            this.user.next(user);
+          this.handleUser(response);
         }),
         catchError(this.handleError)
       );
@@ -75,5 +61,17 @@ export class AuthService {
       }
     }
     return throwError(() => message)
+  }
+
+  handleUser(response: AuthResponse){
+    const expirationDate = new Date(new Date().getTime() + (Number(response.expiresIn) * 1000))
+    const user = new User(
+      response.email,
+      response.localId,
+      response.idToken,
+      expirationDate);
+
+      console.log(user)
+      this.user.next(user);
   }
 }
