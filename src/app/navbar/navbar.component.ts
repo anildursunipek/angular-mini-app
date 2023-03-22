@@ -8,6 +8,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   isAuthenticated : boolean = false;
+  isAdmin: boolean = false;
   constructor(private authService : AuthService) { }
 
   //ngOnInit component açıldığında çalışan ilk fonksiyondur. ngOnChance’den sonra gelen ikinci lifecycle eventidir. Burada getProduct’ı OnInit’e tanımlayarak component açıldığı anda ilk bu fonksiyonu çalıştırmasını istiyoruz.
@@ -18,7 +19,9 @@ export class NavbarComponent implements OnInit {
       }else{
         this.isAuthenticated = false;
       }
-    })
+      this.isAdmin = user?.email == "anildursunipek@gmail.com";
+    });
+
   }
   logout(){
     localStorage.removeItem("user");
