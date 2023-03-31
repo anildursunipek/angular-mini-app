@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { Category } from '../models/category';
+import { environment } from 'src/environments/environment';
+import { Category } from '../models/category.model';
 
 @Injectable()
 export class CategoryService {
-  private url = "https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/";
+  private url = environment.url;
   constructor(private http: HttpClient) { }
 
   getCategories(): Observable<Category[]>{

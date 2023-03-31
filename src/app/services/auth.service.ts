@@ -1,9 +1,10 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Subject, tap, throwError } from 'rxjs';
-import { Account } from '../models/account';
-import { AuthResponse } from '../models/authResponse';
-import { User } from '../models/user';
+import { environment } from 'src/environments/environment';
+import { Account } from '../models/account.model';
+import { AuthResponse } from '../models/authResponse.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ import { User } from '../models/user';
 export class AuthService {
   signUpUrl:string = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
   signInUrl:string = "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
-  apiKey:string = "AIzaSyA-VCQuVDFMOPdMgnULzTP3BKf_Y-tAnkU";
+  apiKey:string = environment.apiKey;
   user = new BehaviorSubject<User|null>(null);
 
   constructor(private http: HttpClient) { }

@@ -1,13 +1,14 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, delay, exhaustMap, map, Observable, take, tap, throwError } from "rxjs";
-import { Product } from "../models/product";
+import { environment } from "src/environments/environment";
+import { Product } from "../models/product.model";
 import { AuthService } from "./auth.service";
 
 // Local Service
 @Injectable()
 export class ProductService{
-  private url = "https://ng-shopapp-c5cd5-default-rtdb.europe-west1.firebasedatabase.app/";
+  private url = environment.url;
   constructor(
     private http: HttpClient,
     private authService: AuthService){}

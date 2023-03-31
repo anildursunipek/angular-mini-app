@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class NavbarComponent implements OnInit {
       }else{
         this.isAuthenticated = false;
       }
-      this.isAdmin = user?.email == "anildursunipek@gmail.com";
+      this.isAdmin = user?.email == environment.adminEmail;
     });
 
   }
